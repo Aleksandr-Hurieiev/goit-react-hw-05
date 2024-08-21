@@ -1,19 +1,21 @@
-import MovieCast from "../../components/MovieCast/MovieCast";
-import MovieReviews from "../../components/MovieReviews/MovieReviews";
-import { Link, Outlet } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useRef } from "react";
+
+import MovieCard from "../../components/MovieCard/MovieCard";
+import MovieInfo from "../../components/MovieInfo/MovieInfo";
+
 const MovieDetailsPage = () => {
+  const location = useLocation();
+  const backLink = useRef(location.state || "/movies");
+
   return (
-    <>
-      <ul>
-        <li>
-          <Link to="cast">Movie Cast</Link>
-        </li>
-        <li>
-          <Link to="reviews">Movie Reviews</Link>
-        </li>
-      </ul>
-      <Outlet />
-    </>
+    <div>
+      <Link to={backLink.current}>
+        <button type="button">Go Back</button>
+      </Link>
+      <MovieCard />
+      <MovieInfo />
+    </div>
   );
 };
 

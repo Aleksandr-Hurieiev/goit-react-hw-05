@@ -1,13 +1,22 @@
-import { Link, Outlet } from "react-router-dom";
-import { useParams } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
-const MovieList = ({ title, id }) => {
+import css from "./MoviesList.module.css";
+
+const MoviesList = ({ movies }) => {
+  const location = useLocation();
   return (
-    <>
-      <Link to={`/${id}`}>{title}</Link>
-      <Outlet />
-    </>
+    <ul className={css.list}>
+      {movies.map((movie) => {
+        return (
+          <li key={movie.id}>
+            <Link state={location} to={`/movies/${movie.id}`}>
+              <p>{movie.title}</p>
+            </Link>
+          </li>
+        );
+      })}
+    </ul>
   );
 };
 
-export default MovieList;
+export default MoviesList;
